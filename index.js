@@ -72,9 +72,13 @@ app.post('/search', async (req, res) => {
       }));
 
     res.json(productos);
-  } catch (err) {
-    res.status(500).json({ error: err.message, detalle: err.response?.data });
-  }
+  catch (err) {
+  console.error("❌ ERROR en la petición a Amazon:", err.response?.data || err.message);
+  res.status(500).json({
+    error: err.message,
+    detalle: err.response?.data || null
+  });
+}
 });
 
 app.listen(3000, () => console.log('Servidor en puerto 3000'));
